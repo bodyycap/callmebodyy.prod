@@ -378,6 +378,12 @@
             fill: currentColor;
         }
 
+        /* Visually balance Instagram icon */
+        .social-icon[href*="instagram"] svg {
+            transform: scale(0.85);
+            /* Slightly smaller to match visual weight */
+        }
+
         .footer-bottom {
             display: flex;
             flex-direction: column;
@@ -442,8 +448,7 @@
             }
 
             .theme-switch {
-                transform: scale(0.8);
-                /* Smaller toggle on mobile */
+                /* Removed scale(0.8) to match other toggles */
                 transform-origin: right top;
             }
 
@@ -776,7 +781,7 @@
             top: 20px;
             right: 20px;
             /* Ensure toggles fit inside phone view */
-            transform: scale(0.8);
+            /* transform: scale(0.8); Removed to match regular size */
             transform-origin: top right;
         }
 
@@ -946,7 +951,7 @@
                     </div>
 
                     <div class="bio-text" id="bio-ru" style="display: none;">
-                        <p>Я видеомонтажёр, нахожусь в Центральной Европе и работаю под именем <b>callmebodyy</b>.<br>
+                        <p>Я видеомонтажёр, нахожусь в Восточной Европе и работаю под именем <b>callmebodyy</b>.<br>
                             Имею более 2 лет опыта в Adobe Premiere Pro, After Effects и DaVinci Resolve.<br>
                             К каждому проекту подхожу с вниманием к деталям и глубоким пониманием целей клиента, всегда
                             выкладываюсь на максимум, чтобы результат действительно радовал заказчика.
