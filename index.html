@@ -61,8 +61,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100dvh;
+            /* Dynamic viewport height for mobile browsers */
             background-color: #ffffff;
             z-index: 99999;
             display: flex;
@@ -1516,31 +1517,30 @@
         const viewToggle = document.getElementById('viewToggle'); // Updated ID
         const langCheckbox = document.getElementById('lang-checkbox');
 
-        // Check for saved user preference or system default
-        const currentTheme = localStorage.getItem('theme');
+        // Auto-detect System Theme (Always runs on load, no persistence)
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.add('dark-mode');
+            toggleSwitch.checked = true;
+        }
 
-        if (currentTheme) {
-            // User has manual preference
-            document.body.classList.add(currentTheme);
-            if (currentTheme === 'dark-mode') {
-                toggleSwitch.checked = true;
-            }
-        } else {
-            // No manual preference, auto-detect system theme
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // Listen for system theme changes in real-time
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            // Always adhere to system changes since we don't save prefs
+            if (e.matches) {
                 document.body.classList.add('dark-mode');
                 toggleSwitch.checked = true;
-                // We don't save to localStorage here to keep it "auto" until user manually toggles
+            } else {
+                document.body.classList.remove('dark-mode');
+                toggleSwitch.checked = false;
             }
-        }
+        });
+
 
         function switchTheme(e) {
             if (e.target.checked) {
                 document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark-mode');
             } else {
                 document.body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light-mode');
             }
         }
 
@@ -1550,27 +1550,18 @@
         function switchView(e) {
             if (e.target.checked) {
                 document.body.classList.add('force-mobile');
-                localStorage.setItem('viewMode', 'mobile');
             } else {
                 document.body.classList.remove('force-mobile');
-                localStorage.setItem('viewMode', 'desktop');
             }
         }
 
         viewToggle.addEventListener('change', switchView);
 
         // Auto-detect Mobile Device (for Force Mobile View)
-        // Only if user hasn't manually set a preference (optional, but good UX)
-        // For this demo, we'll just check if it's a mobile UA and default to checked if so
-        const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const savedView = localStorage.getItem('viewMode');
+        // We do NOT save this preference to localStorage, so it resets on reload (as requested)
+        const isMobileUA = /Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-        if (savedView) {
-            if (savedView === 'mobile') {
-                viewToggle.checked = true;
-                document.body.classList.add('force-mobile');
-            }
-        } else if (isMobileUA) {
+        if (isMobileUA) {
             viewToggle.checked = true;
             document.body.classList.add('force-mobile');
         }
@@ -1592,7 +1583,6 @@
                 socialLabelRu.style.display = 'block';
                 contactBtnEn.style.display = 'none';
                 contactBtnRu.style.display = 'inline-block';
-                localStorage.setItem('language', 'ru');
             } else {
                 // Switch to English
                 bioEn.style.display = 'block';
@@ -1601,23 +1591,15 @@
                 socialLabelRu.style.display = 'none';
                 contactBtnEn.style.display = 'inline-block';
                 contactBtnRu.style.display = 'none';
-                localStorage.setItem('language', 'en');
             }
         }
 
         langCheckbox.addEventListener('change', switchLang);
 
-        // Auto-detect Language
-        const savedLang = localStorage.getItem('language');
+        // Auto-detect Language (Always runs on load, no persistence)
         const userLang = navigator.language || navigator.userLanguage;
 
-        if (savedLang) {
-            if (savedLang === 'ru') {
-                langCheckbox.checked = true;
-                // Manually trigger the switch logic to update display
-                switchLang({ target: langCheckbox });
-            }
-        } else if (userLang && userLang.toLowerCase().includes('ru')) {
+        if (userLang && userLang.toLowerCase().includes('ru')) {
             langCheckbox.checked = true;
             switchLang({ target: langCheckbox });
         }
