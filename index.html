@@ -38,13 +38,116 @@
 
         /* Dark Mode Variables */
         body.dark-mode {
-            --bg-color: #121212;
-            --content-bg: #1E1E1E;
-            --text-main: #FFFFFF;
-            --text-secondary: #AAAAAA;
-            --toggle-bg: #333;
-            --toggle-circle: #1A1A1A;
+            --bg-color: #050505;
+            /* Deep black base */
+            --content-bg: rgba(20, 20, 20, 0.6);
+            /* Glassmorphism card bg */
+            --text-main: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-color: #fff;
+            --border-color: rgba(255, 255, 255, 0.1);
+
+            /* Mesh Gradient Colors (Dark) */
+            --mesh-red: rgba(139, 0, 0, 0.45);
+            --mesh-pink: rgba(199, 21, 133, 0.4);
+            --mesh-yellow: rgba(255, 215, 0, 0.15);
+            --mesh-purple: rgba(75, 0, 130, 0.3);
+            --mesh-orange: rgba(255, 140, 0, 0.2);
+
+            /* Grid Colors (Dark) */
+            --grid-line: rgba(255, 255, 255, 0.12);
+            /* Increased from 0.04 */
+            --grid-mask: radial-gradient(circle at 50% 50%, black 30%, transparent 95%);
+
+            /* Film Grain URL (SVG Noise) - Increased opacity from 0.07 to 0.15 */
+            --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
         }
+
+        /* Light Mode Variables & Mesh */
+        body:not(.dark-mode) {
+            /* Mesh Gradient Colors (Light) - More Vibrant/Visible */
+            --mesh-red: rgba(255, 105, 180, 0.6);
+            /* Hot Pink */
+            --mesh-pink: rgba(238, 130, 238, 0.65);
+            /* Violet */
+            --mesh-yellow: rgba(255, 255, 0, 0.5);
+            /* Stronger Yellow */
+            --mesh-purple: rgba(147, 112, 219, 0.6);
+            /* Medium Purple */
+            --mesh-orange: rgba(255, 165, 0, 0.5);
+            /* Orange */
+
+            /* Grid Colors (Light) */
+            --grid-line: rgba(0, 0, 0, 0.08);
+            --grid-mask: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+
+            /* Film Grain (Significantly Increased opacity from 0.15 to 0.4) */
+            --film-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+        }
+
+        /* 1. Mesh Gradient (Shared Logic for Both Modes) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+
+            /* Complex Gradient Composition */
+            background:
+                radial-gradient(circle at 10% 90%, var(--mesh-red) 0%, transparent 50%),
+                radial-gradient(circle at 90% 60%, var(--mesh-pink) 0%, transparent 50%),
+                radial-gradient(circle at 30% 20%, var(--mesh-purple) 0%, transparent 40%),
+                radial-gradient(circle at 70% 30%, var(--mesh-orange) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, var(--mesh-yellow) 0%, transparent 40%);
+
+            background-size: 100% 100%;
+            background-position: 0 0;
+            transition: background 0.5s ease;
+            /* Smooth toggle transition */
+        }
+
+        /* 2. Grid Overlay (Shared Logic) */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+
+            /* The Grid Pattern & Film Grain */
+            background-image:
+                var(--film-grain),
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+
+            background-size:
+                200px 200px,
+                /* Grain size */
+                60px 60px,
+                /* Grid size */
+                60px 60px;
+            /* Grid size */
+
+            background-repeat: repeat;
+
+            /* Non-linear effect */
+            -webkit-mask-image: var(--grid-mask);
+            mask-image: var(--grid-mask);
+
+            opacity: 1;
+            /* Increased from 0.8 to full visibility (control with rgba) */
+            transition: background-image 0.5s ease;
+        }
+
+        /* Cleanup Old Specific Dark Mode Rules to avoid conflicts */
+        /* (The rules below replaced the previous body.dark-mode::before/after blocks) */
 
         body {
             font-family: 'Inter', sans-serif;
@@ -337,6 +440,17 @@
             padding-bottom: 177.78%;
             /* 16:9 inverted = 9:16 aspect ratio */
             height: 0;
+            background: rgba(255, 255, 255, 0.05);
+            /* Gray fill for card background */
+            border-radius: 12px;
+            /* Ensure radius matches iframe */
+            overflow: hidden;
+            /* Clip contents to radius */
+        }
+
+        /* Light mode video container fill */
+        body:not(.dark-mode) .video-container {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         /* Aspect Ratio for Horizontal (16:9) */
@@ -959,6 +1073,39 @@
             text-align: center;
         }
 
+        .placeholder-container {
+            border: 1.5px dashed rgba(255, 255, 255, 0.3);
+            /* Dashed border from reference */
+            border-radius: 12px;
+            /* Match video card radius */
+            background: rgba(255, 255, 255, 0.05);
+            /* Gray fill for dark mode */
+            aspect-ratio: 9 / 16;
+            /* Vertical video format */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        /* Light mode adjustment for placeholder border and background */
+        body:not(.dark-mode) .placeholder-container {
+            border-color: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.05);
+            /* Gray fill for light mode */
+        }
+
+        .placeholder-content {
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            font-style: italic;
+            /* Match reference style */
+            font-weight: 300;
+        }
+
         body.force-mobile .contact-btn {
             font-size: 0.85rem;
             padding: 8px 20px;
@@ -1305,16 +1452,22 @@
                         </div>
                     </div>
 
-                    <!-- Placeholder Card -->
+                    <!-- Improved Placeholder Card (Restored Text) -->
                     <div class="video-card placeholder-container">
-                        <div class="video-container">
-                            <div class="placeholder-card">
-                                <span>to be continued...</span>
-                            </div>
+                        <div class="placeholder-content">
+                            <span>to be continued</span>
+                        </div>
+                    </div>
+
+                    <!-- 9th Cell (Placeholder to Balance Grid) -->
+                    <div class="video-card placeholder-container">
+                        <div class="placeholder-content">
+                            <span>to be continued</span>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- Long-Form Videos Section (New Frame) -->
             <div class="section-label-wrapper fade-in-up" style="margin-top: 40px;">
