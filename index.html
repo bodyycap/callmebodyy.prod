@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
     <title>callmebodyy | Video Editor</title>
     <meta name="description"
         content="Portfolio of callmebodyy - Video Editor and Content Creator. Specializing in Shorts and dynamic video content.">
@@ -13,6 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/open-sauce-one" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gluten:wght@400;600;700&family=Patrick+Hand&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
 
     <style>
         /* CSS Reset & Basics */
@@ -157,6 +159,14 @@
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        /* STRICT PC LAYOUT ENFORCEMENT */
+        /* If NOT in mobile mode, force a specific minimum width so the layout NEVER breaks on small screens */
+        body:not(.force-mobile) {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
 
         /* Preloader Styles */
         #preloader {
@@ -571,8 +581,13 @@
             /* Increased from 0.9rem */
             font-weight: 500;
             color: var(--text-main);
-            background-color: var(--bg-color);
-            border: 1px solid var(--text-secondary);
+
+            /* Glass Style */
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+
             padding: 12px 32px;
             /* Increased from 8px 24px */
             border-radius: 8px;
@@ -588,9 +603,9 @@
         }
 
         body.dark-mode .contact-btn {
-            background-color: #222;
-            /* Darker bg for button in dark mode */
-            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(20, 20, 20, 0.4);
+            /* Dark Glass */
+            border-color: rgba(255, 255, 255, 0.1);
             color: #eee;
         }
 
@@ -626,7 +641,11 @@
         .social-icon svg {
             width: 24px;
             height: 24px;
-            fill: currentColor;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         /* Visually balance Instagram icon */
@@ -650,123 +669,152 @@
             /* Space between lines */
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
+        /* RESPONSIVE PC MEDIA QUERIES */
+
+        /* Tablet / Narrow Desktop */
+        @media (max-width: 1100px) {
+            body:not(.force-mobile) .container {
                 padding: 0 20px;
-                /* Reduced side padding on mobile */
+                /* Reduce padding */
             }
 
-            header {
-                min-height: auto;
-                /* Allow header to size by content */
-                text-align: center;
-                padding: 100px 0 10px;
-                /* Reduced bottom padding again */
-                justify-content: center;
-                /* Center flex content horizontally */
+            body:not(.force-mobile) .header-content-new-layout {
+                gap: 15px;
             }
 
-            .header-content {
+            body:not(.force-mobile) .profile-card {
+                width: 260px;
+                /* Slightly smaller profile card */
+            }
+        }
+
+        /* Tablet / Vertical Mode */
+        @media (max-width: 900px) {
+            body:not(.force-mobile) .header-content-new-layout {
                 flex-direction: column;
-                gap: 20px;
                 align-items: center;
-                /* Center on mobile */
             }
 
-            .profile-img {
+            body:not(.force-mobile) .profile-card {
+                width: 100%;
+                max-width: 500px;
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                gap: 20px;
+            }
+
+            body:not(.force-mobile) .card-image-wrapper {
                 width: 120px;
-                /* Slightly smaller profile image */
-                height: 120px;
+                margin: 0;
             }
 
-            .profile-text h1 {
-                font-size: 2rem;
-            }
-
-            .bio-text {
-                font-size: 0.9rem;
-                text-align: center;
-                /* Center text on mobile */
-                margin: 20px auto 0;
-                /* Center block on mobile */
-            }
-
-            /* Reposition Theme Toggle for Mobile */
-            .theme-switch-wrapper {
-                top: 20px;
-                right: 20px;
-                transform: scale(0.8);
-                /* Scale down all toggles */
-                transform-origin: top right;
-            }
-
-            .theme-switch {
-                /* Removed scale(0.8) to match other toggles */
-                transform-origin: right top;
-            }
-
-            .portfolio-grid,
-            .horizontal-grid {
-                grid-template-columns: 1fr;
-                /* Single column on mobile */
-                gap: 30px;
-            }
-
-            #portfolio {
-                padding-bottom: 0;
-                /* Removed padding to center contact button */
-            }
-
-            footer {
-                padding: 40px 0;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 10px;
+            body:not(.force-mobile) .card-socials {
+                margin-top: 0;
+                margin-left: auto;
+                padding-top: 0;
+                border-top: none;
+                border-left: 1px dashed rgba(0, 0, 0, 0.1);
+                padding-left: 20px;
+                height: 100%;
                 align-items: center;
-                /* Center on mobile */
             }
 
-            /* Smaller social icons on mobile */
-            .social-icon svg {
-                width: 18px;
-                /* Reduced from 24px */
-                height: 18px;
-            }
-
-            .social-links {
-                gap: 20px;
-                /* Slightly reduced gap */
-                font-size: 0.85rem;
-                /* Slightly smaller text */
-            }
-
-            .section-title {
+            body:not(.force-mobile) .main-title {
                 text-align: center;
+                align-items: center;
             }
 
-            /* Revert Contact Button for Mobile */
-            .contact-btn {
-                font-size: 0.85rem;
-                /* Increased slightly */
-                padding: 8px 20px;
-                /* Increased slightly */
-                border-radius: 6px;
+            body:not(.force-mobile) .profile-main-content {
+                width: 100%;
+                max-width: 100%;
+                padding-top: 0;
+            }
+
+            body:not(.force-mobile) .profile-main-content .bio-text {
+                max-width: 100%;
+            }
+
+            body:not(.force-mobile) .cards-row {
+                max-width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Mobile-like widths on PC Browser */
+        @media (max-width: 700px) {
+            body:not(.force-mobile) .profile-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            body:not(.force-mobile) .card-image-wrapper {
+                margin: 0 auto;
+            }
+
+            body:not(.force-mobile) .card-socials {
+                width: 100%;
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px dashed rgba(0, 0, 0, 0.1);
+                padding-top: 15px;
+                margin-top: 15px;
+                justify-content: center;
+            }
+
+            body:not(.force-mobile) .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            body:not(.force-mobile) .horizontal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body:not(.force-mobile) .cards-row {
+                flex-direction: column !important;
+            }
+
+            body:not(.force-mobile) .experience-card,
+            body:not(.force-mobile) .software-card {
+                width: 100%;
             }
         }
 
         @media (max-width: 480px) {
-            .profile-text h1 {
-                font-size: 1.8rem;
+            body:not(.force-mobile) .portfolio-grid {
+                grid-template-columns: 1fr;
             }
+        }
+
+
+        /* Container for side-by-side cards */
+        /* Container for side-by-side cards */
+        .cards-row {
+            display: flex;
+            flex-direction: row !important;
+            /* Force row */
+            flex-wrap: nowrap !important;
+            /* Prevent wrapping */
+            gap: 20px;
+            width: 100%;
+            max-width: 75%;
+            /* Match bio-text max-width */
+        }
+
+
+
+        body.force-mobile .cards-row {
+            flex-direction: column !important;
+            width: 100%;
         }
 
         /* Theme Toggle Switch */
         .theme-switch-wrapper {
             position: absolute;
-            top: 30px;
+            top: 100px;
+            /* Adjusted up by 30px */
             right: 40px;
             display: flex;
             flex-direction: column;
@@ -1010,17 +1058,18 @@
             left: 15px;
             right: auto;
             color: #fff;
+            font-family: 'Inter', sans-serif;
         }
 
         /* Individual Toggle Hint Styling */
         .toggle-hint-item {
             position: absolute;
-            left: 110px;
-            /* Position to the RIGHT of the toggle */
-            right: auto;
+            left: auto;
+            /* Position to the LEFT of the toggle */
+            right: 110px;
             top: 50%;
-            transform: translateY(-50%) translateX(20px);
-            /* Slide in from right */
+            transform: translateY(-50%) translateX(-20px);
+            /* Slide in from left */
             background: rgba(255, 255, 255, 0.85);
             padding: 8px 16px;
             /* Larger padding */
@@ -1056,7 +1105,7 @@
         @media (max-width: 1200px) {
             .toggle-hint-item {
                 left: auto;
-                right: 115px;
+                right: 110px;
                 transform: translateY(-50%) translateX(-20px);
                 /* Revert animation direction */
                 font-size: 0.8rem;
@@ -1075,13 +1124,13 @@
         }
 
         body.force-mobile .container {
-            max-width: 375px;
-            /* Typical mobile width */
-            padding: 0 20px;
+            max-width: 370px;
+            /* Reduced for narrower mobile look */
+            padding: 0 10px;
+            /* Reduced from 20px */
             margin: 20px auto;
             border-radius: 20px;
             border: 4px solid #444;
-            /* Phone bezel */
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
             min-height: calc(100vh - 40px);
         }
@@ -1098,7 +1147,8 @@
         body.force-mobile .theme-switch-wrapper {
             position: absolute;
             /* Keep absolute relative to container */
-            top: 20px;
+            top: 100px;
+            /* Adjusted up by 30px */
             right: 20px;
             /* Ensure toggles fit inside phone view */
             transform: scale(0.8);
@@ -1265,18 +1315,25 @@
         }
 
         .section-badge {
-            font-size: 0.9rem;
+            font-size: 1rem;
+            /* Matched contact-btn */
             font-weight: 500;
             color: var(--text-main);
-            background-color: var(--bg-color);
-            /* Matches background to cover line if needed */
-            border: 1px solid var(--text-secondary);
-            padding: 8px 24px;
+
+            /* Glass Style */
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            /* Subtle border */
+
+            padding: 12px 32px;
+            /* Matched contact-btn */
             border-radius: 8px;
             /* Slightly rounded corners */
             z-index: 2;
             position: relative;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         /* Vertical Connector Line */
@@ -1310,11 +1367,13 @@
         }
 
         /* Adjust gradients for dark mode toggle */
+        /* Adjust gradients for dark mode toggle */
         body.dark-mode .section-badge {
-            border-color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.1);
             color: #eee;
-            background-color: #222;
-            /* Ensure background matches dark theme */
+            background: rgba(20, 20, 20, 0.4);
+            /* Dark Glass */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         body.dark-mode .section-label-wrapper::after {
@@ -1339,11 +1398,1310 @@
                 /* Restored tighter spacing */
             }
         }
+
+        /* New Profile Card Layout */
+        .header-content-new-layout {
+            display: flex;
+            align-items: stretch;
+            /* Stretch columns to equal height */
+            /* Align to top */
+            justify-content: center;
+            gap: 25px;
+            /* Reduced gap */
+            width: 100%;
+            padding-top: 60px;
+            /* Increased top padding to push content down a bit */
+        }
+
+        /* Left Side: Profile Card */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.4);
+            /* Semi-transparent white */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 24px;
+            /* Restored padding */
+            width: 300px;
+            /* Restored width */
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            /* Softer shadow */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Subtle border for glass effect */
+            position: relative;
+            z-index: 10;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        body.dark-mode .profile-card {
+            background: rgba(20, 20, 20, 0.4);
+            /* Semi-transparent dark content bg */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 75%;
+            /* Reduced width slightly from 85% */
+            margin: 0 auto 20px auto;
+            /* Centered horizontally */
+            aspect-ratio: 4/5;
+            /* Standard Portrait Ratio */
+            z-index: 2;
+        }
+
+        .card-profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            background: #eee;
+        }
+
+        /* Decorative Dashed Lines Removed */
+        .card-image-wrapper::before,
+        .card-image-wrapper::after {
+            display: none !important;
+        }
+
+
+        .card-name {
+            font-size: 1.8rem;
+            /* Restored size */
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        body.dark-mode .card-name {
+            color: #fff;
+        }
+
+
+        .card-icon {
+            font-size: 2.5rem;
+            /* Restored size */
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        /* Removed complex svg styling for card-icon */
+
+        .card-tagline {
+            font-size: 1rem;
+            /* Increased from 0.9rem */
+            line-height: 1.4;
+            margin-bottom: 20px;
+            padding: 0 5px;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 700;
+            /* Bold */
+        }
+
+        body.dark-mode .card-tagline {
+            color: #bbb;
+        }
+
+        /* Social Icons in Card (Matching Footer Style) */
+        .card-socials {
+            display: flex;
+            gap: 24px;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+            width: 100%;
+            justify-content: center;
+        }
+
+        body.dark-mode .card-socials {
+            border-top-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-socials .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-secondary);
+            /* Match footer color */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card-socials .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: none;
+            /* Handled by parent color */
+        }
+
+        .card-socials .social-icon:hover {
+            color: var(--text-main);
+            /* Darker on hover like footer */
+            transform: translateY(-2px);
+        }
+
+        /* Right Side: Main Text */
+        .profile-main-content {
+            flex: 1;
+            max-width: 600px;
+            /* Align text block with the content inside the card */
+            padding-top: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Push content apart */
+        }
+
+        .profile-bottom-content {
+            margin-top: auto;
+            /* Push to bottom */
+            padding-top: 40px;
+            /* Minimum gap from bio */
+        }
+
+        .main-title {
+            font-size: 3rem;
+            /* Reduced from 5rem */
+            font-weight: 800;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            /* Stacked */
+            align-items: flex-start;
+            gap: 5px;
+            margin-top: -5px;
+            /* Visual pull-up to align Cap Height with Image Top */
+        }
+
+        .outline-text {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #333;
+            opacity: 0.3;
+        }
+
+        body:not(.dark-mode) .outline-text {
+            -webkit-text-stroke: 1.5px #999;
+            /* Softer stroke */
+            opacity: 1;
+            color: transparent;
+        }
+
+        body.dark-mode .outline-text {
+            -webkit-text-stroke: 1.5px #fff;
+            opacity: 0.8;
+        }
+
+        /* Adjust bio text for right side */
+        .profile-main-content .bio-text {
+            border-left: 2px solid #ff5722;
+            /* Thinner line */
+            padding-left: 20px;
+            text-align: left;
+            /* Reduced size */
+            max-width: 75%;
+            /* Increased slightly from 65% */
+            margin-top: 0;
+            line-height: 1.5;
+        }
+
+        .profile-main-content .bio-text p {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: 300;
+            /* Light */
+            font-size: 1.2rem;
+            /* Increased from 1rem */
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            /* Softer text color */
+        }
+
+        .profile-main-content .availability {
+            margin-top: 15px;
+            display: block;
+            font-size: 0.8rem;
+            color: #ff5722;
+            font-weight: 500;
+        }
+
+        /* Mobile Updates */
+        @media (max-width: 900px) {
+            .container {
+                max-width: 100% !important;
+                /* Override desktop max-width */
+                padding: 0 5px;
+                /* Minimal padding */
+            }
+
+            .card-icon {
+                display: none;
+            }
+
+            .nav-logo {
+                display: none;
+            }
+
+            .header-content-new-layout {
+                flex-direction: column;
+                gap: 8px;
+                padding-top: 160px;
+                align-items: center;
+            }
+
+            /* Ensure Toggles don't overlap */
+            /* Ensure Toggles don't overlap */
+            .theme-switch-wrapper {
+                top: 10px !important;
+                right: 15px !important;
+                /* Align with margin */
+                transform: scale(0.9);
+                z-index: 2000 !important;
+                /* Higher than everything */
+                background: rgba(0, 0, 0, 0.2) !important;
+                border-radius: 20px;
+                padding: 4px;
+            }
+
+            /* Mobile Title - Hidden by default */
+            .mobile-title-wrapper {
+                display: none;
+            }
+
+
+
+            /* Mobile Title */
+            .mobile-title-wrapper {
+                display: block !important;
+                position: absolute;
+                top: 15px;
+                /* Aligned with toggles */
+                left: 15px;
+                /* FIRM LEFT: Opposite to toggles */
+                text-align: left;
+                margin: 0;
+                width: auto;
+                max-width: fit-content;
+                /* Ensure container shrinks to fit content */
+                z-index: 1001;
+                /* Above everything */
+            }
+
+            .mobile-title-wrapper .main-title {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: flex-start !important;
+                /* Align left */
+                font-size: 2rem !important;
+                /* Reduced size to fit */
+                width: auto !important;
+                margin: 0 !important;
+                order: initial !important;
+                line-height: 0.9;
+            }
+
+            .profile-main-content .main-title {
+                display: none !important;
+            }
+
+            /* Compact Image Wrapper */
+            .card-image-wrapper {
+                width: 60px !important;
+                margin-bottom: 8px !important;
+            }
+
+            .card-name {
+                font-size: 1.1rem !important;
+                margin-bottom: 2px !important;
+            }
+
+            /* Unified Width and Less Bulk */
+            .profile-card,
+            .availability-card,
+            .cards-row {
+                width: 100% !important;
+                max-width: 260px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .profile-card {
+                margin-bottom: 20px;
+                height: auto !important;
+                min-height: 0 !important;
+                padding: 16px !important;
+                justify-content: flex-start !important;
+            }
+
+            .card-socials {
+                margin-top: 15px !important;
+                padding-top: 10px !important;
+            }
+
+            /* Less Bulk for Availability */
+            .availability-card {
+                justify-content: center;
+                margin-bottom: 20px;
+                padding: 12px 20px !important;
+            }
+
+            /* Mobile Grid Logic */
+            .cards-row {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
+
+            .availability-card {
+                grid-column: 1 / -1;
+                /* Full width */
+                margin-bottom: 0 !important;
+            }
+
+            .experience-card,
+            .software-card {
+                width: 100% !important;
+                min-height: 100px !important;
+                /* Smaller compact cards */
+                padding: 10px !important;
+            }
+
+            .software-card .software-icon {
+                height: 40px !important;
+            }
+
+            .exp-number {
+                font-size: 1.5rem !important;
+            }
+
+            /* Video Expansion - 2 Column Grid */
+            .portfolio-frame {
+                padding: 0 !important;
+                border: none !important;
+                margin: 0 -10px !important;
+                /* Slightly less negative margin */
+                width: calc(100% + 20px) !important;
+            }
+
+            .portfolio-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 8px !important;
+                padding: 0 5px !important;
+            }
+        }
+
+
+        /* Force Mobile Override - Sync with @media (max-width: 900px) */
+        /* Force Mobile Override */
+        body.force-mobile .container {
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            max-width: 400px !important;
+            /* Mimic phone width */
+            margin: 0 auto !important;
+            /* Center on screen */
+            padding: 0 10px !important;
+            overflow-x: hidden !important;
+            min-height: 100vh !important;
+            background: transparent !important;
+            /* Allow Global BG to show */
+        }
+
+        body.force-mobile .header-content-new-layout {
+            display: flex !important;
+            flex-direction: column !important;
+            /* Strictly Vertical */
+            align-items: center !important;
+            justify-content: flex-start !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            gap: 8px !important;
+            margin-top: 65px !important;
+            padding: 0 !important;
+        }
+
+        /* SHOW NEW MOBILE TITLE */
+        body.force-mobile .mobile-title-wrapper {
+            display: block !important;
+            position: absolute !important;
+            top: 15px !important;
+            left: 15px !important;
+            width: auto !important;
+            max-width: fit-content !important;
+            text-align: left !important;
+            margin-bottom: 0 !important;
+            z-index: 1002 !important;
+        }
+
+        body.force-mobile .mobile-title-wrapper .main-title {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            font-size: 2rem !important;
+            width: auto !important;
+            margin: 0 !important;
+        }
+
+        body.force-mobile .profile-main-content .main-title {
+            display: none !important;
+        }
+
+        /* Reduced Profile Card for Toggle - UNIFIED WIDTH & DESKTOP SYNC */
+        body.force-mobile .profile-card,
+        body.force-mobile .availability-card,
+        body.force-mobile .experience-card,
+        body.force-mobile .software-card,
+        body.force-mobile .bio-text,
+        body.force-mobile .portfolio-frame {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+
+            /* EXACT DESKTOP STYLE MATCH */
+            background: rgba(255, 255, 255, 0.4) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* Dark Mode Transparency override - EXACT DESKTOP MATCH */
+        body.force-mobile.dark-mode .profile-card,
+        body.force-mobile.dark-mode .availability-card,
+        body.force-mobile.dark-mode .experience-card,
+        body.force-mobile.dark-mode .software-card,
+        body.force-mobile.dark-mode .bio-text,
+        body.force-mobile.dark-mode .portfolio-frame {
+            background: rgba(20, 20, 20, 0.4) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        body.force-mobile .profile-card {
+            padding: 20px !important;
+            margin-bottom: 5px !important;
+        }
+
+        body.force-mobile .card-image-wrapper {
+            width: 100px !important;
+            margin-bottom: -20px !important;
+        }
+
+        body.force-mobile .card-name {
+            font-size: 1.5rem !important;
+        }
+
+        body.force-mobile .profile-main-content .bio-text {
+            font-size: 0.9rem !important;
+            padding-top: 15px !important;
+            margin-bottom: 25px !important;
+        }
+
+        body.force-mobile .card-icon {
+            display: none !important;
+        }
+
+        body.force-mobile .nav-logo {
+            display: none !important;
+        }
+
+        body.force-mobile .software-card .software-icon {
+            height: 40px !important;
+        }
+
+        body.force-mobile .exp-number {
+            font-size: 1.5rem !important;
+        }
+
+        /* Force Mobile Grid Sync - ONE COLUMN (Row) */
+        body.force-mobile .cards-row {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+            width: 100% !important;
+        }
+
+        body.force-mobile .portfolio-grid {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            /* One column per user request */
+            gap: 15px !important;
+        }
+
+        body.force-mobile .mobile-title-wrapper .main-title {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            align-items: flex-start !important;
+            font-size: 2rem !important;
+            width: auto !important;
+            margin: 0 !important;
+            order: initial !important;
+            line-height: 0.9;
+        }
+
+        /* HIDE OLD TITLE INSIDE CONTENT */
+        body.force-mobile .profile-main-content .main-title {
+            display: none !important;
+        }
+
+        body.force-mobile .header-content-new-layout {
+            flex-direction: column !important;
+            padding-top: 0 !important;
+            gap: 30px !important;
+            align-items: center !important;
+            width: 100% !important;
+        }
+
+        /* UNIFIED WIDTH FOR ALL CARDS */
+        body.force-mobile .profile-card,
+        body.force-mobile .availability-card,
+        body.force-mobile .cards-row {
+            width: 100% !important;
+            max-width: 260px !important;
+            /* Reduced from 340px (~1.3x smaller, closer to requested visual scale) */
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        body.force-mobile .profile-card {
+            margin-bottom: 20px !important;
+            /* Reduced margin */
+            height: auto !important;
+            min-height: 0 !important;
+            padding: 16px !important;
+            /* Reduced padding */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+        }
+
+        /* RESIZE IMAGE WRAPPER */
+        body.force-mobile .card-image-wrapper {
+            width: 60px !important;
+            /* Reduced from 80px */
+            margin-bottom: 8px !important;
+        }
+
+        body.force-mobile .card-name {
+            font-size: 1.1rem !important;
+            /* Reduced from 1.3rem */
+            margin-bottom: 2px !important;
+        }
+
+        body.force-mobile .card-socials {
+            margin-top: 5px !important;
+            padding-top: 5px !important;
+        }
+
+        body.force-mobile .availability-card {
+            margin-bottom: 20px !important;
+            justify-content: center !important;
+            padding: 12px 20px !important;
+        }
+
+        body.force-mobile .cards-row {
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+
+        body.force-mobile .profile-main-content {
+            display: block !important;
+            width: 100% !important;
+            text-align: center !important;
+            padding-top: 5px !important;
+        }
+
+        body.force-mobile .profile-main-content .bio-text {
+            border-left: none !important;
+            border-top: 3px solid #ff5722 !important;
+            padding-left: 0 !important;
+            padding-top: 10px !important;
+            text-align: center !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            padding-right: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        body.force-mobile .profile-bottom-content {
+            padding-top: 5px !important;
+        }
+
+        body.force-mobile .experience-card,
+        body.force-mobile .software-card {
+            width: 100% !important;
+            min-width: 0 !important;
+            margin-top: 0 !important;
+            height: auto !important;
+            min-height: 130px !important;
+            padding: 15px !important;
+        }
+
+        body.force-mobile .software-card .software-icon {
+            height: 55px !important;
+        }
+
+        /* Video Expansion - REMOVE ALL PADDING */
+        body.force-mobile .portfolio-frame {
+            padding: 0 !important;
+            border: none !important;
+                    background: transparent !important;
+                    margin: 0 -20px !important;
+                    /* Larger negative margin to pull truly full width */
+                    width: calc(100% + 40px) !important;
+                }
+
+                body.force-mobile .portfolio-grid {
+                    gap: 10px !important;
+                    /* Reduced gap for wider cards */
+                }
+
+                body.force-mobile .sketch-nav {
+                    top: 170px !important;
+                    margin-top: 0 !important;
+                    position: absolute !important;
+                    width: calc(100% - 30px) !important;
+                    max-width: 360px !important;
+                    left: 50% !important;
+                    transform: translateX(-50%) !important;
+                    justify-content: center !important;
+                    border-radius: 6px !important;
+                    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+                    padding: 6px 0 !important;
+                    font-size: 1.2rem !important;
+                }
+
+                body.force-mobile .sketch-nav [id$="-en"] {
+                    font-size: 1.2rem !important;
+                }
+
+                body.force-mobile .nav-link {
+                    padding: 3px 8px !important;
+                    white-space: nowrap !important;
+                }
+    </style>
+
+    <style>
+        /* Availability Card */
+        .availability-card {
+            background: rgba(255, 255, 255, 0.65);
+            /* Light mode default */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 24px 30px;
+            /* Increased Padding */
+            color: #1a1a1a;
+            /* Dark text for light mode */
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 75%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 0px;
+            /* Removed bottom margin for alignment */
+            margin-top: 25px;
+            /* Slightly more top gap */
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            /* More gap for icon */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .avail-text {
+            font-weight: 500;
+            opacity: 0.8;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            /* Slight bump */
+        }
+
+        .avail-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00e676;
+            /* Vivid Green */
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+            flex-shrink: 0;
+        }
+
+        body.dark-mode .availability-card {
+            background: rgba(20, 20, 20, 0.4);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Fix for Availability Card */
+        @media (max-width: 900px) {
+            .availability-card {
+                max-width: 100% !important;
+            }
+        }
+
+        body.force-mobile .availability-card {
+            max-width: 100%;
+        }
+
+        /* Experience Card */
+        .experience-card {
+            background: rgba(255, 255, 255, 0.65);
+            /* Light mode */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 20px;
+            color: #1a1a1a;
+            font-family: 'Helvetica Neue', sans-serif;
+            width: 160px;
+            /* Base width */
+            flex: 1;
+            /* Allow growing */
+            min-width: 150px;
+            /* Prevent crushing */
+            height: 160px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 20;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .experience-card {
+            background: rgba(20, 20, 20, 0.4);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Software Card */
+        .software-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 20px;
+            color: #1a1a1a;
+            font-family: 'Helvetica Neue', sans-serif;
+            flex: 1;
+            width: auto;
+            min-width: 150px;
+            height: 160px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 20;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        body.dark-mode .software-card {
+            background: rgba(20, 20, 20, 0.4);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .exp-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: inherit;
+            /* Inherit from card */
+            opacity: 0.8;
+            white-space: nowrap;
+            /* Prevent wrapping */
+        }
+
+        .exp-dot {
+            width: 8px;
+            height: 8px;
+            background-color: currentColor;
+            /* Inherit color */
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .exp-number-wrapper {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start !important;
+            /* Force Left Align */
+            gap: 5px;
+            color: inherit;
+            padding-bottom: 0;
+            padding-left: 5px;
+        }
+
+        .exp-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+
+        .exp-unit {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: inherit;
+            opacity: 0.6;
+            margin-top: 10px;
+            /* Aligns text slightly lower to match the big number baseline */
+        }
+
+
+
+        .software-icon-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            /* Center vertically */
+            justify-content: center;
+            /* Center horizontally */
+            gap: 2px;
+            /* Minimal gap */
+            padding-top: 0;
+            width: 100%;
+        }
+
+        .software-icon {
+            width: auto;
+            max-width: 33%;
+            /* Prevent horizontal overflow */
+            height: 90px;
+            /* 90px fits better than 100px */
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        /* --- HAND-DRAWN NAVIGATION --- */
+        .sketch-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            font-family: 'Seredulya Rus 2', 'Patrick Hand', 'Caveat', cursive;
+            font-size: 1.4rem;
+            margin-bottom: 0;
+            padding: 12px 0;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            pointer-events: none;
+            /* Let empty space pass clicks */
+        }
+
+        body.dark-mode .sketch-nav {
+            background: rgba(20, 20, 30, 0.65);
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .sketch-nav [id$="-en"],
+        .sketch-dropdown .hover-label-en {
+            font-family: 'Gluten', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-size: 1.25rem;
+            /* Slightly scale down for Permanent Marker */
+        }
+
+        .sketch-nav [id$="-ru"],
+        .sketch-dropdown .hover-label-ru {
+            font-family: 'Seredulya Rus 2', 'Patrick Hand', 'Caveat', cursive;
+        }
+
+        .sketch-nav * {
+            pointer-events: auto;
+        }
+
+        .nav-logo {
+            display: none;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            position: relative;
+            padding: 6px 18px;
+            transition: transform 0.2s ease, color 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid var(--text-main);
+            border-radius: 60% 40% 55% 45% / 55% 45% 60% 40%;
+            /* Hand-drawn oval shape */
+            opacity: 0;
+            transform: scale(0.9) rotate(-2deg);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            pointer-events: none;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.05) translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            opacity: 1;
+            transform: scale(1) rotate(1deg);
+        }
+
+        /* Dropdown scattered social links */
+        .nav-item-dropdown {
+            position: relative;
+        }
+
+        .sketch-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 180px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1001;
+        }
+
+        .nav-item-dropdown:hover .sketch-dropdown,
+        .sketch-dropdown:hover {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sketch-drop-item {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -12px;
+            display: flex;
+            align-items: center;
+            color: var(--text-main);
+            text-decoration: none;
+            transform: translate(var(--x), calc(var(--y) - 10px)) rotate(calc(var(--rotation) * 0.5)) scale(0.8);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 5px;
+        }
+
+        .nav-item-dropdown:hover .sketch-drop-item {
+            transform: translate(var(--x), var(--y)) rotate(var(--rotation)) scale(1);
+            opacity: 1;
+        }
+
+        .sketch-drop-item:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+
+        .sketch-drop-item:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .sketch-drop-item:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+
+        .sketch-drop-item:nth-child(4) {
+            transition-delay: 0.2s;
+        }
+
+        .sketch-drop-item:hover svg {
+            transform: scale(1.2) rotate(calc(var(--rotation) * -0.5));
+        }
+
+        .sketch-drop-item svg {
+            transition: transform 0.2s ease;
+            overflow: visible;
+        }
+
+        .hover-label {
+            position: absolute;
+            left: 100%;
+            margin-left: 8px;
+            font-family: 'Seredulya Rus 2', 'Patrick Hand', 'Caveat', cursive;
+            font-size: 1.2rem;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .sketch-drop-item:hover .hover-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+
+        @media (max-width: 600px) {
+            .sketch-nav {
+                margin-top: 0;
+                font-size: 1.2rem !important;
+                gap: 15px;
+                top: 250px;
+                position: absolute;
+                width: calc(100% - 30px);
+                max-width: 360px;
+                left: 50%;
+                transform: translateX(-50%);
+                justify-content: center;
+                border-radius: 6px;
+                border: 1px solid rgba(0, 0, 0, 0.08);
+                padding: 6px 0 !important;
+            }
+
+            .sketch-nav [id$="-en"] {
+                font-size: 1.2rem !important;
+            }
+
+            .nav-links {
+                gap: 8px;
+            }
+
+            .nav-link {
+                padding: 3px 8px;
+                white-space: nowrap;
+            }
+
+            /* Mobile adjustments for dropdown to avoid screen edge overflow */
+            .sketch-dropdown {
+                transform: translateX(-70%);
+                /* Pull left so it doesn't overflow right edge */
+            }
+
+            .sketch-drop-item {
+                transform: translate(calc(var(--x) * 0.8), calc(var(--y) * 0.8)) rotate(calc(var(--rotation) * 0.5)) scale(0.7);
+            }
+
+            .nav-item-dropdown:hover .sketch-drop-item {
+                transform: translate(calc(var(--x) * 0.8), calc(var(--y) * 0.8)) rotate(var(--rotation)) scale(0.9);
+            }
+
+            .profile-main-content .bio-text {
+                padding: 20px !important;
+                border-left: none !important;
+                border-top: 3px solid #ff5722 !important;
+            }
+
+            .profile-main-content .bio-text p,
+            .bio-text p {
+                text-align: center !important;
+            }
+        }
+
+        /* Background video editing sketches */
+        .bg-sketches {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-sketch-icon {
+            position: absolute;
+            color: var(--text-main);
+            opacity: 0.06;
+            transition: opacity 0.3s ease;
+        }
+
+        body.dark-mode .bg-sketch-icon {
+            opacity: 0.08;
+        }
+
+        /* Hide on narrow screens */
+        @media (max-width: 1200px) {
+            .bg-sketches {
+                display: none;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Preloader -->
+    <div class="bg-sketches">
+        <!-- LEFT SIDE: Big clapperboard character -->
+        <svg class="bg-sketch-icon" style="top: 5%; left: 1%; width: 180px; height: 220px; transform: rotate(-8deg);"
+            viewBox="0 0 180 220" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <!-- Clapperboard body -->
+            <rect x="20" y="10" width="140" height="20" rx="3" />
+            <rect x="20" y="30" width="140" height="100" rx="5" />
+            <!-- Clapper stripes -->
+            <line x1="45" y1="10" x2="35" y2="30" />
+            <line x1="75" y1="10" x2="65" y2="30" />
+            <line x1="105" y1="10" x2="95" y2="30" />
+            <line x1="135" y1="10" x2="125" y2="30" />
+            <!-- Screen inside -->
+            <rect x="35" y="45" width="110" height="70" rx="3" />
+            <!-- Play button on screen -->
+            <polygon points="75,65 75,95 100,80" />
+            <!-- Little legs -->
+            <line x1="55" y1="130" x2="45" y2="165" />
+            <line x1="55" y1="165" x2="35" y2="165" />
+            <line x1="125" y1="130" x2="135" y2="165" />
+            <line x1="135" y1="165" x2="155" y2="165" />
+            <!-- Arms waving -->
+            <path d="M20 60 Q5 45 10 30" />
+            <path d="M10 30 Q8 25 15 22" />
+            <path d="M160 55 Q175 40 172 25" />
+            <path d="M172 25 Q174 20 168 18" />
+            <!-- Eyes on clapperboard -->
+            <circle cx="70" cy="22" r="3" fill="currentColor" />
+            <circle cx="110" cy="22" r="3" fill="currentColor" />
+            <!-- Smile -->
+            <path d="M80 26 Q90 32 100 26" />
+        </svg>
+
+        <!-- LEFT SIDE: Scissors cutting film -->
+        <svg class="bg-sketch-icon" style="top: 42%; left: 2%; width: 150px; height: 150px; transform: rotate(12deg);"
+            viewBox="0 0 150 150" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <!-- Scissors -->
+            <circle cx="30" cy="35" r="12" />
+            <circle cx="30" cy="115" r="12" />
+            <line x1="40" y1="40" x2="110" y2="85" />
+            <line x1="40" y1="110" x2="110" y2="65" />
+            <!-- Film strip being cut -->
+            <rect x="90" y="50" width="50" height="50" rx="4" />
+            <rect x="95" y="55" width="8" height="8" rx="1" />
+            <rect x="95" y="87" width="8" height="8" rx="1" />
+            <rect x="127" y="55" width="8" height="8" rx="1" />
+            <rect x="127" y="87" width="8" height="8" rx="1" />
+            <rect x="108" y="62" width="20" height="26" rx="2" />
+            <!-- Snip lines -->
+            <path d="M85 70 Q80 75 85 80" stroke-dasharray="4 3" />
+        </svg>
+
+        <!-- LEFT SIDE: Star sparkle -->
+        <svg class="bg-sketch-icon" style="top: 78%; left: 5%; width: 70px; height: 70px; transform: rotate(-20deg);"
+            viewBox="0 0 70 70" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M35 5 Q38 28 65 35 Q38 42 35 65 Q32 42 5 35 Q32 28 35 5" />
+            <path d="M20 15 Q22 20 25 18" />
+            <path d="M50 52 Q52 56 55 54" />
+        </svg>
+
+        <!-- RIGHT SIDE: Big video camera character -->
+        <svg class="bg-sketch-icon" style="top: 8%; right: 1%; width: 200px; height: 200px; transform: rotate(5deg);"
+            viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <!-- Camera body -->
+            <rect x="15" y="50" width="120" height="90" rx="12" />
+            <!-- Lens -->
+            <circle cx="75" cy="95" r="28" />
+            <circle cx="75" cy="95" r="15" />
+            <circle cx="75" cy="95" r="5" fill="currentColor" />
+            <!-- Flash bump -->
+            <path d="M40 50 L50 30 L90 30 L100 50" />
+            <!-- Recording light -->
+            <circle cx="120" cy="60" r="4" fill="currentColor" />
+            <!-- Viewfinder triangle -->
+            <polygon points="135,70 175,55 175,105 135,90" />
+            <!-- Tripod legs -->
+            <line x1="55" y1="140" x2="20" y2="190" />
+            <line x1="75" y1="140" x2="75" y2="195" />
+            <line x1="95" y1="140" x2="130" y2="190" />
+            <!-- Tripod feet -->
+            <line x1="15" y1="188" x2="25" y2="192" />
+            <line x1="70" y1="193" x2="80" y2="197" />
+            <line x1="125" y1="188" x2="135" y2="192" />
+            <!-- Little birds on top -->
+            <path d="M50 28 Q48 22 44 25" />
+            <path d="M50 28 Q52 22 56 25" />
+        </svg>
+
+        <!-- RIGHT SIDE: Film reel -->
+        <svg class="bg-sketch-icon" style="top: 50%; right: 3%; width: 140px; height: 140px; transform: rotate(-15deg);"
+            viewBox="0 0 140 140" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <!-- Outer reel -->
+            <circle cx="70" cy="70" r="55" />
+            <circle cx="70" cy="70" r="45" />
+            <!-- Center hole -->
+            <circle cx="70" cy="70" r="10" />
+            <!-- Spokes -->
+            <line x1="70" y1="25" x2="70" y2="15" />
+            <line x1="70" y1="115" x2="70" y2="125" />
+            <line x1="25" y1="70" x2="15" y2="70" />
+            <line x1="115" y1="70" x2="125" y2="70" />
+            <!-- Film coming off the reel -->
+            <path d="M125 70 Q135 65 133 55 Q130 45 140 40 Q145 38 140 32" />
+            <!-- Reel holes -->
+            <circle cx="70" cy="40" r="5" />
+            <circle cx="70" cy="100" r="5" />
+            <circle cx="40" cy="70" r="5" />
+            <circle cx="100" cy="70" r="5" />
+        </svg>
+
+        <!-- RIGHT SIDE: Small sparkle -->
+        <svg class="bg-sketch-icon" style="top: 82%; right: 6%; width: 60px; height: 60px; transform: rotate(25deg);"
+            viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M30 5 Q33 24 55 30 Q33 36 30 55 Q27 36 5 30 Q27 24 30 5" />
+        </svg>
+    </div>
+
+    <!-- Custom Cursor elements -->
     <div id="preloader">
         <div class="loader-brand-text">
             <span>callmebodyy</span>
@@ -1352,9 +2710,10 @@
         <!-- "now loading" removed as requested -->
     </div>
 
+
     <main class="container">
         <!-- Header -->
-        <header>
+        <header id="about">
             <div class="theme-switch-wrapper">
                 <!-- Theme Toggle -->
                 <label class="theme-switch" for="checkbox">
@@ -1379,37 +2738,234 @@
                     <span class="toggle-hint-item" id="hint-lang"></span>
                 </label>
             </div>
-            <div class="header-content fade-in-up">
-                <img src="profile.jpg" alt="callmebodyy" class="profile-img">
-                <div class="profile-text fade-in-up">
-                    <h1 id="gradient-heading">callmebodyy</h1>
-                    <p>Video Editor / Content Creator</p>
+
+            <div class="header-content-new-layout fade-in-up">
+                <!-- Mobile Only Title -->
+                <div class="mobile-title-wrapper" style="display: none;">
+                    <div class="main-title">
+                        <span>VIDEO</span>
+                        <span class="outline-text">EDITOR</span>
+                    </div>
+                </div>
+
+    <!-- Navigation (Moved inside layout for mobile flow) -->
+    <nav class="sketch-nav">
+        <a href="#" class="nav-logo" id="nav-home">
+            <svg viewBox="0 0 100 100" width="22" height="22" style="overflow: visible;">
+                <circle cx="35" cy="40" r="5" fill="var(--text-main)" />
+                <circle cx="65" cy="40" r="5" fill="var(--text-main)" />
+                <path d="M 30 65 Q 50 85 70 65" stroke="var(--text-main)" stroke-width="6" fill="none"
+                    stroke-linecap="round" />
+            </svg>
+        </a>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">
+                <span id="nav-about-en">about</span>
+                <span id="nav-about-ru" style="display: none;">обо мне</span>
+            </a>
+            <a href="#portfolio" class="nav-link">
+                <span id="nav-work-en">work</span>
+                <span id="nav-work-ru" style="display: none;">работы</span>
+            </a>
+
+            <div class="nav-item-dropdown">
+                <a href="#contact" class="nav-link">
+                    <span id="nav-contact-en">connect</span>
+                    <span id="nav-contact-ru" style="display: none;">контакты</span>
+                </a>
+
+                <div class="sketch-dropdown">
+                    <a href="https://www.instagram.com/callmebodyy.prod/reels/" target="_blank" class="sketch-drop-item"
+                        style="--rotation: -8deg; --x: -25px; --y: 15px;">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" />
+                            <line x1="16.5" y1="7.5" x2="16.5" y2="7.5" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span class="hover-label">
+                            <span class="hover-label-en">insta</span>
+                            <span class="hover-label-ru" style="display: none;">инста</span>
+                        </span>
+                    </a>
+                    <a href="https://www.tiktok.com/@callmebodyy" target="_blank" class="sketch-drop-item"
+                        style="--rotation: 12deg; --x: 10px; --y: 45px;">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path
+                                d="M9 3v13a4 4 0 0 1-8 0c0-2.2 1.8-4 4-4v4a2 2 0 1 0 2 2V3h3a4 4 0 0 0 4 4v3a7 7 0 0 1-5-2z"
+                                stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span class="hover-label">
+                            <span class="hover-label-en">tiktok</span>
+                            <span class="hover-label-ru" style="display: none;">тикток</span>
+                        </span>
+                    </a>
+                    <a href="https://www.youtube.com/@callmebodyy/shorts" target="_blank" class="sketch-drop-item"
+                        style="--rotation: -5deg; --x: -20px; --y: 80px;">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" />
+                            <polygon points="10,9 15,12 10,15" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linejoin="round" stroke-linecap="round" />
+                        </svg>
+                        <span class="hover-label">
+                            <span class="hover-label-en">youtube</span>
+                            <span class="hover-label-ru" style="display: none;">ютуб</span>
+                        </span>
+                    </a>
+                    <a href="https://t.me/bodyyprod" target="_blank" class="sketch-drop-item"
+                        style="--rotation: 8deg; --x: 15px; --y: 110px;">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linejoin="round" stroke-linecap="round" />
+                        </svg>
+                        <span class="hover-label">
+                            <span class="hover-label-en">telegram</span>
+                            <span class="hover-label-ru" style="display: none;">телеграм</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+                <!-- Left: Profile Card -->
+                <div class="profile-card">
+                    <div class="card-image-wrapper">
+                        <img src="profile.jpg" alt="callmebodyy" class="card-profile-img">
+                    </div>
+                    <h2 class="card-name" id="gradient-heading">callmebodyy</h2>
+                    <div class="card-icon">
+                        👨‍💻
+                    </div>
+                    <p class="card-tagline" id="tagline-en">Transforming raw footage into engaging video stories.</p>
+                    <p class="card-tagline" id="tagline-ru" style="display: none;">Превращаю исходные кадры в увлекательные видеоистории.</p>
+
+                    <div class="card-socials">
+                        <a href="https://www.instagram.com/callmebodyy.prod/reels/" target="_blank" class="social-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="4" width="16" height="16" rx="4" />
+                                <circle cx="12" cy="12" r="3" />
+                                <line x1="16.5" y1="7.5" x2="16.5" y2="7.5" stroke-width="3" />
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@callmebodyy" target="_blank" class="social-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9 3v13a4 4 0 0 1-8 0c0-2.2 1.8-4 4-4v4a2 2 0 1 0 2 2V3h3a4 4 0 0 0 4 4v3a7 7 0 0 1-5-2z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.youtube.com/@callmebodyy/shorts" target="_blank" class="social-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="6" width="20" height="12" rx="3" />
+                                <polygon points="10,9 15,12 10,15" />
+                            </svg>
+                        </a>
+                        <a href="https://t.me/bodyyprod" target="_blank" class="social-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Main Content -->
+                <div class="profile-main-content">
+                    <div class="main-title">
+                        <span>VIDEO</span>
+                        <span class="outline-text">EDITOR</span>
+                    </div>
 
                     <div class="bio-text" id="bio-en">
-                        <p>I’m a video editor based in the EU, working under the name <b>callmebodyy</b>.<br>
-                            With over 2 years of experience in Adobe Premiere Pro, After Effects and DaVinci
-                            Resolve.<br>
-                            I approach every project with attention to detail and a deep understanding of the client’s
-                            goals, always giving my full effort to deliver work the client is genuinely happy with. I
-                            edit vlogs, interviews, podcasts, and entertainment content, and also handle light motion
+                        <p>I approach every project with attention to detail and a deep understanding of the
+                            client’s
+                            goals, always giving my full effort to deliver work the client is genuinely happy with.<br>
+                            I edit vlogs, interviews, podcasts, and entertainment content, and also handle light
+                            motion
                             design to support the story visually.<br>
-                            Most of my portfolio features Russian-language content, but I have <b>B2-level English</b>
+                            Most of my portfolio features Russian-language content, but I have <b>B2-level
+                                English</b>
                             and I am fully open to work with
                             English-speaking clients and <b>new video formats</b>.</p>
-                        <p class="availability">Available daily from 06:00–18:00 UTC</p>
+
                     </div>
 
                     <div class="bio-text" id="bio-ru" style="display: none;">
-                        <p>Я видеомонтажёр, нахожусь в Восточной Европе и работаю под именем <b>callmebodyy</b>.<br>
-                            Имею более 2 лет опыта в Adobe Premiere Pro, After Effects и DaVinci Resolve.<br>
-                            К каждому проекту подхожу с вниманием к деталям и глубоким пониманием целей клиента, всегда
-                            выкладываюсь на максимум, чтобы результат действительно радовал заказчика.
+                        <p>К каждому проекту подхожу с вниманием к деталям и глубоким пониманием целей клиента,
+                            всегда
+                            выкладываюсь на максимум, чтобы результат действительно радовал заказчика.<br>
                             Монтирую влоги, интервью, подкасты и развлекательный контент, а также занимаюсь лёгким
                             моушн-дизайном для визуальной поддержки истории.<br>
                             Я полностью открыт к предложениям о работе с любым форматом материала.</p>
-                        <p class="availability">Доступен онлайн с 10 до 22 часов по UTC+3 (московское)</p>
+                    </div>
+
+
+
+
+                    <!-- Bottom Content Wrapper -->
+                    <div class="profile-bottom-content">
+                        <!-- Cards Row -->
+                        <div class="cards-row" style="width: 100%;">
+                            <!-- Experience Card -->
+                            <div class="experience-card" style="margin-top: 0;">
+                                <div class="exp-header">
+                                    <span class="exp-dot"></span>
+                                    <span id="exp-label-en">Experience:</span>
+                                    <span id="exp-label-ru" style="display: none;">Опыт:</span>
+                                </div>
+                                <div class="exp-number-wrapper">
+                                    <span class="exp-number">2</span>
+                                    <span class="exp-unit" id="exp-unit-en">years</span>
+                                    <span class="exp-unit" id="exp-unit-ru" style="display: none;">года</span>
+                                </div>
+                            </div>
+
+                            <!-- Working In Card -->
+                            <div class="software-card">
+                                <div class="exp-header">
+                                    <span class="exp-dot"></span>
+                                    <span id="work-label-en">Working in:</span>
+                                    <span id="work-label-ru" style="display: none;">Работаю в:</span>
+                                </div>
+                                <div class="software-icon-wrapper">
+                                    <img src="pr-3d.png" alt="Premiere Pro" class="software-icon">
+                                    <img src="ae-3d.png" alt="After Effects" class="software-icon">
+                                    <img src="davinci-3d.png" alt="DaVinci Resolve" class="software-icon">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Availability Card -->
+                        <!-- Availability Card -->
+                        <div class="availability-card" style="margin-top: 25px; align-items: flex-start;">
+                            <div class="avail-content-wrapper" style="display: flex; flex-direction: column; gap: 5px;">
+                                <div class="avail-header" style="display: flex; align-items: center; gap: 10px;">
+                                    <span class="avail-dot"></span> <!-- Styled Dot -->
+                                    <span class="avail-text" id="avail-label-en" style="line-height:1;">Available
+                                        online:</span>
+                                    <span class="avail-text" id="avail-label-ru"
+                                        style="display: none; line-height:1;">Доступен онлайн:</span>
+                                </div>
+                                <div class="avail-time" style="padding-left: 18px; padding-top: 7px;">
+                                    <span class="avail-text" id="avail-time-en"
+                                        style="font-weight: 300; font-size: 1.1rem;">10:00 - 22:00 UTC+3</span>
+                                    <span class="avail-text" id="avail-time-ru"
+                                        style="display: none; font-weight: 300; font-size: 1.1rem;">с 10 до 22 часов
+                                        по
+                                        UTC+3</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
             </div>
         </header>
 
@@ -1424,8 +2980,8 @@
                 <div class="portfolio-grid">
                     <!-- Video 1 -->
                     <div class="video-card">
-                        <div class="video-container video-facade" data-video-id="-mppHU6TEyc">
-                            <img src="https://img.youtube.com/vi/-mppHU6TEyc/maxresdefault.jpg" class="video-cover"
+                        <div class="video-container video-facade" data-video-id="l4OttIETNvs">
+                            <img src="https://img.youtube.com/vi/l4OttIETNvs/maxresdefault.jpg" class="video-cover"
                                 alt="Video Cover">
                             <div class="play-button"></div>
                         </div>
@@ -1433,14 +2989,32 @@
 
                     <!-- Video 2 -->
                     <div class="video-card">
-                        <div class="video-container video-facade" data-video-id="ixFp3OCVaVg">
-                            <img src="https://img.youtube.com/vi/ixFp3OCVaVg/maxresdefault.jpg" class="video-cover"
+                        <div class="video-container video-facade" data-video-id="8g2X1CUYSFA">
+                            <img src="https://img.youtube.com/vi/8g2X1CUYSFA/maxresdefault.jpg" class="video-cover"
                                 alt="Video Cover">
                             <div class="play-button"></div>
                         </div>
                     </div>
 
                     <!-- Video 3 -->
+                    <div class="video-card">
+                        <div class="video-container video-facade" data-video-id="-mppHU6TEyc">
+                            <img src="https://img.youtube.com/vi/-mppHU6TEyc/maxresdefault.jpg" class="video-cover"
+                                alt="Video Cover">
+                            <div class="play-button"></div>
+                        </div>
+                    </div>
+
+                    <!-- Video 4 -->
+                    <div class="video-card">
+                        <div class="video-container video-facade" data-video-id="h5TWOKIpNGI">
+                            <img src="https://img.youtube.com/vi/h5TWOKIpNGI/maxresdefault.jpg" class="video-cover"
+                                alt="Video Cover">
+                            <div class="play-button"></div>
+                        </div>
+                    </div>
+
+                    <!-- Video 5 -->
                     <div class="video-card">
                         <div class="video-container video-facade" data-video-id="P9vyGTnAHC4">
                             <img src="https://img.youtube.com/vi/P9vyGTnAHC4/maxresdefault.jpg" class="video-cover"
@@ -1449,16 +3023,7 @@
                         </div>
                     </div>
 
-                    <!-- Video 4 (Restored) -->
-                    <div class="video-card">
-                        <div class="video-container video-facade" data-video-id="xxgPgH0LR84">
-                            <img src="https://img.youtube.com/vi/xxgPgH0LR84/maxresdefault.jpg" class="video-cover"
-                                alt="Video Cover">
-                            <div class="play-button"></div>
-                        </div>
-                    </div>
-
-                    <!-- Video 5 -->
+                    <!-- Video 6 -->
                     <div class="video-card">
                         <div class="video-container video-facade" data-video-id="cOV2telqoTk">
                             <img src="https://img.youtube.com/vi/cOV2telqoTk/maxresdefault.jpg" class="video-cover"
@@ -1467,7 +3032,16 @@
                         </div>
                     </div>
 
-                    <!-- Video 6 -->
+                    <!-- Video 7 -->
+                    <div class="video-card">
+                        <div class="video-container video-facade" data-video-id="xxgPgH0LR84">
+                            <img src="https://img.youtube.com/vi/xxgPgH0LR84/maxresdefault.jpg" class="video-cover"
+                                alt="Video Cover">
+                            <div class="play-button"></div>
+                        </div>
+                    </div>
+
+                    <!-- Video 8 -->
                     <div class="video-card">
                         <div class="video-container video-facade" data-video-id="2MEB1WaY1D8">
                             <img src="https://img.youtube.com/vi/2MEB1WaY1D8/maxresdefault.jpg" class="video-cover"
@@ -1476,26 +3050,12 @@
                         </div>
                     </div>
 
-                    <!-- Video 7 -->
+                    <!-- Video 9 -->
                     <div class="video-card">
                         <div class="video-container video-facade" data-video-id="VnQ6QIonJuA">
                             <img src="https://img.youtube.com/vi/VnQ6QIonJuA/maxresdefault.jpg" class="video-cover"
                                 alt="Video Cover">
                             <div class="play-button"></div>
-                        </div>
-                    </div>
-
-                    <!-- Improved Placeholder Card (Restored Text) -->
-                    <div class="video-card placeholder-container">
-                        <div class="placeholder-content">
-                            <span>to be continued</span>
-                        </div>
-                    </div>
-
-                    <!-- 9th Cell (Placeholder to Balance Grid) -->
-                    <div class="video-card placeholder-container">
-                        <div class="placeholder-content">
-                            <span>to be continued</span>
                         </div>
                     </div>
                 </div>
@@ -1541,35 +3101,39 @@
         </section>
 
         <!-- Footer -->
-        <footer class="fade-in-up">
+        <footer class="fade-in-up" id="contact">
             <p class="social-label" id="social-label-en">my social media:</p>
             <p class="social-label" id="social-label-ru" style="display: none;">мои соц. сети:</p>
             <div class="social-links">
                 <a href="https://www.instagram.com/callmebodyy.prod/reels/" target="_blank" class="social-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="4" y="4" width="16" height="16" rx="4" />
+                        <circle cx="12" cy="12" r="3" />
+                        <line x1="16.5" y1="7.5" x2="16.5" y2="7.5" stroke-width="3" />
                     </svg>
                     <span>Instagram</span>
                 </a>
                 <a href="https://www.tiktok.com/@callmebodyy" target="_blank" class="social-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path
-                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                            d="M9 3v13a4 4 0 0 1-8 0c0-2.2 1.8-4 4-4v4a2 2 0 1 0 2 2V3h3a4 4 0 0 0 4 4v3a7 7 0 0 1-5-2z" />
                     </svg>
                     <span>TikTok</span>
                 </a>
                 <a href="https://www.youtube.com/@callmebodyy/shorts" target="_blank" class="social-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="2" y="6" width="20" height="12" rx="3" />
+                        <polygon points="10,9 15,12 10,15" />
                     </svg>
                     <span>YouTube</span>
                 </a>
                 <a href="https://t.me/bodyyprod" target="_blank" class="social-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.638z" />
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
                     </svg>
                     <span>Telegram</span>
                 </a>
@@ -1714,85 +3278,226 @@
             });
         }
 
-        // Dark Mode Logic
-        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-        const viewToggle = document.getElementById('viewToggle'); // Updated ID
+        // === ROBUST AUTO-DETECTION & PREFERENCE HANDLING ===
+        const viewToggle = document.getElementById('viewToggle');
+        const themeToggle = document.querySelector('.theme-switch input[type="checkbox"]');
         const langCheckbox = document.getElementById('lang-checkbox');
+        const viewportMeta = document.getElementById('viewport-meta');
 
-        // Auto-detect System Theme (Always runs on load, no persistence)
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.body.classList.add('dark-mode');
-            toggleSwitch.checked = true;
+        // Helper: Set Layout Mode
+        function setLayoutMode(isMobile) {
+            if (isMobile) {
+                document.body.classList.add('force-mobile');
+                viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                if (viewToggle) viewToggle.checked = true;
+            } else {
+                document.body.classList.remove('force-mobile');
+                // Force PC width to device width for responsiveness
+                viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                if (viewToggle) viewToggle.checked = false;
+            }
         }
 
-        // Listen for system theme changes in real-time
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            // Always adhere to system changes since we don't save prefs
-            if (e.matches) {
+        // Helper: Set Theme Mode
+        function setThemeMode(isDark) {
+            if (isDark) {
                 document.body.classList.add('dark-mode');
-                toggleSwitch.checked = true;
+                if (themeToggle) themeToggle.checked = true;
             } else {
                 document.body.classList.remove('dark-mode');
-                toggleSwitch.checked = false;
+                if (themeToggle) themeToggle.checked = false;
+            }
+        }
+
+        // Helper: Set Language
+        function setLanguage(isRu) {
+            if (langCheckbox) {
+                langCheckbox.checked = isRu;
+                // Trigger the change event manually to update text
+                langCheckbox.dispatchEvent(new Event('change'));
+            }
+        }
+
+        // --- INITIALIZATION ---
+        function initSiteSettings() {
+            // 1. DEVICE DETECTION (UA or Screen Width)
+            // Use UA for initial classification, fallback to width
+            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isSmallScreen = window.innerWidth < 900;
+            const detectMobile = isMobileUA || isSmallScreen;
+
+            setLayoutMode(detectMobile);
+
+            // 2. THEME DETECTION
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setThemeMode(prefersDark);
+
+            // 3. LANGUAGE DETECTION
+            const userLang = navigator.language || navigator.userLanguage;
+            const isRu = userLang.toLowerCase().includes('ru');
+            // We need to wait for DOM ready for language switch to work? 
+            // The function switchLang is defined below, so we should call it or trigger event.
+            // Since this runs after DOMContentLoaded (mostly), let's delay slightly or call directly if possible.
+            // For now, just setting checkbox state is not enough, we need to invoke logic.
+            setTimeout(() => setLanguage(isRu), 0);
+        }
+
+        // Run Init
+        initSiteSettings();
+
+
+        // --- EVENT LISTENERS ---
+
+        // Theme Toggle
+        if (themeToggle) {
+            themeToggle.addEventListener('change', (e) => {
+                setThemeMode(e.target.checked);
+            });
+        }
+
+        // View Toggle (PC/MOB)
+        if (viewToggle) {
+            viewToggle.addEventListener('change', (e) => {
+                // Checkbox checked = MOB, unchecked = PC
+                setLayoutMode(e.target.checked);
+            });
+        }
+
+        // System Theme Change Listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            setThemeMode(e.matches);
+        });
+
+        // Responsive Window Resize Listener
+        window.addEventListener('resize', () => {
+            const isSmallScreen = window.innerWidth < 900;
+            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const detectMobile = isMobileUA || isSmallScreen;
+            
+            // Re-apply layout mode based on current screen size if it doesn't match
+            if (document.body.classList.contains('force-mobile') !== detectMobile) {
+                setLayoutMode(detectMobile);
             }
         });
 
-
-        function switchTheme(e) {
-            if (e.target.checked) {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-        }
-
-        toggleSwitch.addEventListener('change', switchTheme, false);
-
-        // View Switch Logic (Force Mobile)
-        function switchView(e) {
-            if (e.target.checked) {
-                document.body.classList.add('force-mobile');
-            } else {
-                document.body.classList.remove('force-mobile');
-            }
-        }
-
-        viewToggle.addEventListener('change', switchView);
-
-        // Auto-detect Mobile Device (for Force Mobile View)
-        // We do NOT save this preference to localStorage, so it resets on reload (as requested)
-        const isMobileUA = /Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-        if (isMobileUA) {
-            viewToggle.checked = true;
-            document.body.classList.add('force-mobile');
-        }
+        // Language toggle logic is preserved below...
 
         // Language Switch Logic (Functional)
         function switchLang(e) {
             const bioEn = document.getElementById('bio-en');
             const bioRu = document.getElementById('bio-ru');
+
+            // Tagline Elements
+            const taglineEn = document.getElementById('tagline-en');
+            const taglineRu = document.getElementById('tagline-ru');
+
+            // Experience Card Elements
+            const expLabelEn = document.getElementById('exp-label-en');
+            const expLabelRu = document.getElementById('exp-label-ru');
+            const expUnitEn = document.getElementById('exp-unit-en');
+            const expUnitRu = document.getElementById('exp-unit-ru');
+
+            const workLabelEn = document.getElementById('work-label-en');
+            const workLabelRu = document.getElementById('work-label-ru');
+
+            const availLabelEn = document.getElementById('avail-label-en');
+            const availLabelRu = document.getElementById('avail-label-ru');
+            const availTimeEn = document.getElementById('avail-time-en');
+            const availTimeRu = document.getElementById('avail-time-ru');
+
             const socialLabelEn = document.getElementById('social-label-en');
             const socialLabelRu = document.getElementById('social-label-ru');
+
+            /* Debug availability elements */
+            console.log('Avail elems:', availLabelEn, availLabelRu);
+
             const contactBtnEn = document.getElementById('contact-btn-en');
             const contactBtnRu = document.getElementById('contact-btn-ru');
+
+            // Nav Elements
+            const navAboutEn = document.getElementById('nav-about-en');
+            const navAboutRu = document.getElementById('nav-about-ru');
+            const navWorkEn = document.getElementById('nav-work-en');
+            const navWorkRu = document.getElementById('nav-work-ru');
+            const navContactEn = document.getElementById('nav-contact-en');
+            const navContactRu = document.getElementById('nav-contact-ru');
+
+            // Hover Labels
+            const hoverLabelsEn = document.querySelectorAll('.hover-label-en');
+            const hoverLabelsRu = document.querySelectorAll('.hover-label-ru');
 
             if (e.target.checked) {
                 // Switch to Russian
                 bioEn.style.display = 'none';
                 bioRu.style.display = 'block';
+
+                if (taglineEn) taglineEn.style.display = 'none';
+                if (taglineRu) taglineRu.style.display = 'block';
+
+                if (expLabelEn) expLabelEn.style.display = 'none';
+                if (expLabelRu) expLabelRu.style.display = 'block';
+
+                if (expUnitEn) expUnitEn.style.display = 'none';
+                if (expUnitRu) expUnitRu.style.display = 'inline';
+
+                if (workLabelEn) workLabelEn.style.display = 'none';
+                if (workLabelRu) workLabelRu.style.display = 'block';
+
+                if (availLabelEn) availLabelEn.style.display = 'none';
+                if (availLabelRu) availLabelRu.style.display = 'block';
+                if (availTimeEn) availTimeEn.style.display = 'none';
+                if (availTimeRu) availTimeRu.style.display = 'block';
+
                 socialLabelEn.style.display = 'none';
                 socialLabelRu.style.display = 'block';
                 contactBtnEn.style.display = 'none';
                 contactBtnRu.style.display = 'inline-block';
+
+                if (navAboutEn) navAboutEn.style.display = 'none';
+                if (navAboutRu) navAboutRu.style.display = 'inline';
+                if (navWorkEn) navWorkEn.style.display = 'none';
+                if (navWorkRu) navWorkRu.style.display = 'inline';
+                if (navContactEn) navContactEn.style.display = 'none';
+                if (navContactRu) navContactRu.style.display = 'inline';
+
+                if (hoverLabelsEn) hoverLabelsEn.forEach(el => el.style.display = 'none');
+                if (hoverLabelsRu) hoverLabelsRu.forEach(el => el.style.display = 'inline');
             } else {
                 // Switch to English
                 bioEn.style.display = 'block';
                 bioRu.style.display = 'none';
+
+                if (taglineEn) taglineEn.style.display = 'block';
+                if (taglineRu) taglineRu.style.display = 'none';
+
+                if (expLabelEn) expLabelEn.style.display = 'block';
+                if (expLabelRu) expLabelRu.style.display = 'none';
+
+                if (expUnitEn) expUnitEn.style.display = 'inline';
+                if (expUnitRu) expUnitRu.style.display = 'none';
+
+                if (workLabelEn) workLabelEn.style.display = 'block';
+                if (workLabelRu) workLabelRu.style.display = 'none';
+
+                if (availLabelEn) availLabelEn.style.display = 'block';
+                if (availLabelRu) availLabelRu.style.display = 'none';
+                if (availTimeEn) availTimeEn.style.display = 'block';
+                if (availTimeRu) availTimeRu.style.display = 'none';
+
                 socialLabelEn.style.display = 'block';
                 socialLabelRu.style.display = 'none';
                 contactBtnEn.style.display = 'inline-block';
                 contactBtnRu.style.display = 'none';
+
+                if (navAboutEn) navAboutEn.style.display = 'inline';
+                if (navAboutRu) navAboutRu.style.display = 'none';
+                if (navWorkEn) navWorkEn.style.display = 'inline';
+                if (navWorkRu) navWorkRu.style.display = 'none';
+                if (navContactEn) navContactEn.style.display = 'inline';
+                if (navContactRu) navContactRu.style.display = 'none';
+
+                if (hoverLabelsEn) hoverLabelsEn.forEach(el => el.style.display = 'inline');
+                if (hoverLabelsRu) hoverLabelsRu.forEach(el => el.style.display = 'none');
             }
         }
 
@@ -1982,6 +3687,228 @@
             });
         });
     </script>
+    <!-- NUCLEAR MOBILE FIX -->
+    <style>
+        /* MOBILE LAYOUT FIX - SCOPED STRICTLY TO force-mobile (NO MEDIA QUERY) */
+
+        /* GLOBAL MOB RESET */
+        body.force-mobile * {
+            box-sizing: border-box !important;
+        }
+
+        /* 1. Toggles to Extreme Edge */
+        body.force-mobile .theme-switch-wrapper {
+            position: absolute !important;
+            top: 10px !important;
+            right: 10px !important;
+            transform: scale(0.9) !important;
+            z-index: 9999 !important;
+            background: rgba(0, 0, 0, 0.25) !important;
+            border-radius: 20px !important;
+            padding: 6px !important;
+            display: flex !important;
+            gap: 8px !important;
+        }
+
+        /* 2. Container Layout */
+        body.force-mobile .container {
+            padding-top: 100px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            padding-bottom: 40px !important;
+            overflow: visible !important;
+            /* Allow video breakout */
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            width: 100% !important;
+            max-width: 370px !important;
+            /* Updated to 370px */
+            /* Mimic phone width */
+            margin: 0 auto !important;
+            /* Center on screen */
+            min-height: 100vh !important;
+            background: transparent !important;
+            /* Allow Global BG to show */
+        }
+
+        body.force-mobile .header-content-new-layout {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 18px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            padding-top: 0 !important;
+        }
+
+        /* 3. Title - Bigger & Bold */
+        body.force-mobile .mobile-title-wrapper {
+            display: block !important;
+            width: 100% !important;
+            text-align: center !important;
+            margin-bottom: 35px !important;
+        }
+
+        body.force-mobile .mobile-title-wrapper .main-title {
+            display: flex !important;
+            flex-direction: column !important;
+            font-size: 3.5rem !important;
+            line-height: 1 !important;
+            width: 100% !important;
+            justify-content: center !important;
+            align-items: center !important;
+            font-weight: 700 !important;
+        }
+
+        /* Hide Desktop Title */
+        body.force-mobile .profile-main-content .main-title {
+            display: none !important;
+        }
+
+        /* 4. Profile Card - Larger & More Readable */
+        body.force-mobile .profile-card {
+            width: 100% !important;
+            max-width: 340px !important;
+            height: auto !important;
+            min-height: 0 !important;
+            padding: 20px !important;
+            margin: 0 auto 9px auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            background: rgba(255, 255, 255, 0.4) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05) !important;
+            color: #111 !important;
+        }
+
+        body.force-mobile.dark-mode .profile-card {
+            background: rgba(20, 20, 20, 0.4) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+        }
+
+        /* Profile Image - Bigger */
+        body.force-mobile .card-image-wrapper {
+            width: 140px !important;
+            height: auto !important;
+            aspect-ratio: 4/5 !important;
+            margin: 0 auto 15px auto !important;
+        }
+
+        body.force-mobile .card-name {
+            font-size: 1.8rem !important;
+            font-weight: 600 !important;
+        }
+
+        body.force-mobile .card-socials {
+            margin-top: 15px !important;
+            padding-top: 15px !important;
+        }
+
+        /* 5. Bio & Other Cards - Larger */
+        body.force-mobile .profile-main-content {
+            display: block !important;
+            width: 100% !important;
+            text-align: center !important;
+        }
+
+        body.force-mobile .profile-main-content .bio-text {
+            width: 100% !important;
+            max-width: 340px !important;
+            margin: 0 auto 9px auto !important;
+            text-align: center !important;
+            padding: 20px !important;
+            border: none !important;
+            border-top: 3px solid #ff5722 !important;
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        body.force-mobile .profile-main-content .bio-text p,
+        body.force-mobile .bio-text p {
+            text-align: center !important;
+        }
+
+        body.force-mobile .cards-row {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            grid-template-areas:
+                "exp soft"
+                "avail avail" !important;
+            width: 100% !important;
+            max-width: 340px !important;
+            gap: 10px !important;
+            margin: 0 auto !important;
+        }
+
+        body.force-mobile .availability-card {
+            grid-area: avail !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            font-size: 1rem !important;
+            padding: 15px !important;
+            margin: 0 !important;
+        }
+
+        body.force-mobile .experience-card {
+            grid-area: exp !important;
+            width: 100% !important;
+            min-height: 120px !important;
+            /* Compact height */
+            margin: 0 !important;
+        }
+
+        body.force-mobile .software-card {
+            grid-area: soft !important;
+            width: 100% !important;
+            min-height: 120px !important;
+            /* Compact height */
+            margin: 0 !important;
+        }
+
+        /* Increase font sizes in cards */
+        body.force-mobile .exp-header {
+            font-size: 0.9rem !important;
+        }
+
+        body.force-mobile .exp-number {
+            font-size: 2rem !important;
+        }
+
+        body.force-mobile .software-icon {
+            height: 60px !important;
+            /* Reduced to fit side-by-side */
+        }
+
+        /* Video Expansion - 1 Column Grid ALWAYS for Mobile */
+        body.force-mobile .portfolio-frame {
+            padding: 30px 30px !important;
+            /* Adjusted video: 30px uniform padding */
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            border-radius: 12px !important;
+            width: 315px !important;
+            margin: 0 auto !important;
+            transform: none !important;
+        }
+
+        body.force-mobile.dark-mode .portfolio-frame {
+            border-color: rgba(255, 255, 255, 0.3) !important;
+        }
+
+        body.force-mobile .portfolio-grid,
+        body.force-mobile .horizontal-grid {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            /* STRICTLY 1 COLUMN */
+            gap: 30px !important;
+            /* Halved gap */
+            padding: 0 5px !important;
+        }
+    </style>
 </body>
 
 </html>
