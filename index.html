@@ -24,6 +24,13 @@
             font-style: normal;
         }
 
+        @font-face {
+            font-family: 'Chewy';
+            src: url('Chewy-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         /* CSS Reset & Basics */
         *,
         *::before,
@@ -1762,7 +1769,7 @@
 
             /* Less Bulk for Availability */
             .availability-card {
-                justify-content: center;
+                justify-content: flex-start;
                 margin-bottom: 20px;
                 padding: 12px 20px !important;
             }
@@ -2023,7 +2030,7 @@
 
         body.force-mobile .availability-card {
             margin-bottom: 20px !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
             padding: 12px 20px !important;
         }
 
@@ -2343,7 +2350,7 @@
 
         .sketch-nav [id$="-en"],
         .sketch-dropdown .hover-label-en {
-            font-family: 'Gluten', sans-serif;
+            font-family: 'Chewy', cursive;
             font-weight: 600;
             letter-spacing: 1.5px;
             font-size: 1.25rem;
