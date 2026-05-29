@@ -2114,6 +2114,18 @@
                     padding: 3px 8px !important;
                     white-space: nowrap !important;
                 }
+
+                body.force-mobile .sketch-dropdown {
+                    transform: translateX(-30%) !important;
+                }
+
+                body.force-mobile .sketch-drop-item {
+                    transform: translate(calc(var(--x) * 0.8), calc(var(--y) * 0.8)) rotate(calc(var(--rotation) * 0.5)) scale(0.7) !important;
+                }
+
+                body.force-mobile .nav-item-dropdown:hover .sketch-drop-item {
+                    transform: translate(calc(var(--x) * 0.8), calc(var(--y) * 0.8)) rotate(var(--rotation)) scale(0.9) !important;
+                }
     </style>
 
     <style>
@@ -2535,8 +2547,8 @@
 
             /* Mobile adjustments for dropdown to avoid screen edge overflow */
             .sketch-dropdown {
-                transform: translateX(-70%);
-                /* Pull left so it doesn't overflow right edge */
+                transform: translateX(-30%);
+                /* Shifted slightly to the right to avoid covering the profile photo */
             }
 
             .sketch-drop-item {
@@ -2774,7 +2786,7 @@
         </a>
         <div class="nav-links">
             <a href="#about" class="nav-link">
-                <span id="nav-about-en">about</span>
+                <span id="nav-about-en">about me</span>
                 <span id="nav-about-ru" style="display: none;">обо мне</span>
             </a>
             <a href="#portfolio" class="nav-link">
